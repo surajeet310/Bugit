@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bugit</string>
+    <string name="app_desc">Manage virtual Workspaces, Projects and Tasks</string>
+</resources>

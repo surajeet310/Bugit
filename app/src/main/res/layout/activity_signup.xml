@@ -28,15 +28,17 @@
             android:layout_marginBottom="15sp"
             android:fontFamily="@font/baskervville"
             android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameInputLayout"
-            android:layout_margin="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameInput"
@@ -48,11 +50,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailInputLayout"
-            android:layout_margin="15sp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailInput"
@@ -64,15 +67,18 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pwdInputLayout"
-            android:layout_margin="15sp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            app:endIconMode="password_toggle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pwdInput"
                 android:hint="Enter your password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -80,15 +86,18 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirmPwdInputLayout"
-            android:layout_margin="15sp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            app:endIconMode="password_toggle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirmPwdInput"
                 android:hint="Re enter your password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

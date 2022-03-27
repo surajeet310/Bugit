@@ -6,6 +6,7 @@ import com.herokuapp.serverbugit.api.models.tasks.AddComment
 import com.herokuapp.serverbugit.api.models.tasks.AddTask
 import com.herokuapp.serverbugit.api.models.tasks.AssignTask
 import com.herokuapp.serverbugit.api.models.tasks.SingleTaskResponse
+import com.herokuapp.serverbugit.api.models.users.*
 import com.herokuapp.serverbugit.api.models.workspaces.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -139,5 +140,40 @@ interface BugitAuthApiServices {
     @DELETE("/auth/deleteTask")
     suspend fun deleteTask(
         @Query("task_id") taskId: UUID
+    ):Response<GlobalServerResponse>
+
+    //TODO User Endpoints
+
+    @GET("/auth/user")
+    suspend fun getUser(
+        @Query("user_id") userId: UUID
+    ):Response<UserResponse>
+
+    @GET("/auth/getUserId")
+    suspend fun getUserId():Response<GlobalServerResponse>
+
+    @POST("/auth/checkPwd")
+    suspend fun checkPassword(
+        @Body password:UserCheckPassword
+    ):Response<GlobalServerResponse>
+
+    @PATCH("/auth/changeFname")
+    suspend fun changeFname(
+        @Body fname:UserUpdateFname
+    ):Response<GlobalServerResponse>
+
+    @PATCH("/auth/changeLname")
+    suspend fun changeLname(
+        @Body lname:UserUpdateLname
+    ):Response<GlobalServerResponse>
+
+    @PATCH("/auth/changePwd")
+    suspend fun changePwd(
+        @Body password:UserUpdatePassword
+    ):Response<GlobalServerResponse>
+
+    @DELETE("/auth/deleteUser")
+    suspend fun deleteUser(
+        @Query("user_id") userId: UUID
     ):Response<GlobalServerResponse>
 }

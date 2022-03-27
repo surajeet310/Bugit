@@ -6,6 +6,10 @@ import com.herokuapp.serverbugit.api.models.projects.MakeProjectMemberAdmin
 import com.herokuapp.serverbugit.api.models.tasks.AddComment
 import com.herokuapp.serverbugit.api.models.tasks.AddTask
 import com.herokuapp.serverbugit.api.models.tasks.AssignTask
+import com.herokuapp.serverbugit.api.models.users.UserCheckPassword
+import com.herokuapp.serverbugit.api.models.users.UserUpdateFname
+import com.herokuapp.serverbugit.api.models.users.UserUpdateLname
+import com.herokuapp.serverbugit.api.models.users.UserUpdatePassword
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspace
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMember
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMemberRequest
@@ -265,6 +269,71 @@ class BugitAuthApiTests {
         BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
         runBlocking {
             val res = api.deleteTask(UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    //TODO Users
+
+    @Test
+    fun `Get User`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.getUser(UUID.fromString("3d7eee0c-fad4-4e18-8442-64b197dd4f79"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Get User Id`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.getUserId()
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Check Password`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.checkPassword(UserCheckPassword(UUID.fromString("3d21cef2-84ae-48f4-96d5-5b7b6de91351"),"random@1234"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Change First Name`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.changeFname(UserUpdateFname(UUID.fromString("3d21cef2-84ae-48f4-96d5-5b7b6de91351"),"Ned"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Change Last Name`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.changeLname(UserUpdateLname(UUID.fromString("3d21cef2-84ae-48f4-96d5-5b7b6de91351"),"Stark"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Change Password`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.changePwd(UserUpdatePassword(UUID.fromString("3d21cef2-84ae-48f4-96d5-5b7b6de91351"),"random@123"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Delete User`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.deleteUser(UUID.fromString("bcaf8345-ed6c-49af-963e-9138e397180e"))
             assertEquals("success",res.body()?.response)
         }
     }

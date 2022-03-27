@@ -2,6 +2,10 @@ package com.herokuapp.serverbugit.api.services
 
 import com.herokuapp.serverbugit.api.models.GlobalServerResponse
 import com.herokuapp.serverbugit.api.models.projects.*
+import com.herokuapp.serverbugit.api.models.tasks.AddComment
+import com.herokuapp.serverbugit.api.models.tasks.AddTask
+import com.herokuapp.serverbugit.api.models.tasks.AssignTask
+import com.herokuapp.serverbugit.api.models.tasks.SingleTaskResponse
 import com.herokuapp.serverbugit.api.models.workspaces.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -108,5 +112,32 @@ interface BugitAuthApiServices {
     @DELETE("/auth/removeProjectMember")
     suspend fun removeProjectMember(
         @Query("project_id") projectId: UUID, @Query("user_id") userId: UUID
+    ):Response<GlobalServerResponse>
+
+    //TODO Task Endpoints
+
+    @GET("/auth/task")
+    suspend fun getSingleTask(
+        @Query("task_id") taskId:UUID
+    ):Response<SingleTaskResponse>
+
+    @POST("/auth/addTask")
+    suspend fun addTask(
+        @Body task:AddTask
+    ):Response<GlobalServerResponse>
+
+    @POST("/auth/addComment")
+    suspend fun addComment(
+        @Body comment:AddComment
+    ):Response<GlobalServerResponse>
+
+    @POST("/auth/assignTask")
+    suspend fun assignTask(
+        @Body user:AssignTask
+    ):Response<GlobalServerResponse>
+
+    @DELETE("/auth/deleteTask")
+    suspend fun deleteTask(
+        @Query("task_id") taskId: UUID
     ):Response<GlobalServerResponse>
 }

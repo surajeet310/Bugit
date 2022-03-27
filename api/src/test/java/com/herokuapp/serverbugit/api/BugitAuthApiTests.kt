@@ -3,6 +3,9 @@ package com.herokuapp.serverbugit.api
 import com.herokuapp.serverbugit.api.models.projects.AddProject
 import com.herokuapp.serverbugit.api.models.projects.AddProjectMember
 import com.herokuapp.serverbugit.api.models.projects.MakeProjectMemberAdmin
+import com.herokuapp.serverbugit.api.models.tasks.AddComment
+import com.herokuapp.serverbugit.api.models.tasks.AddTask
+import com.herokuapp.serverbugit.api.models.tasks.AssignTask
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspace
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMember
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMemberRequest
@@ -185,6 +188,15 @@ class BugitAuthApiTests {
     }
 
     @Test
+    fun `Get Project Members`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.getProjectMembers(UUID.fromString("9dacf005-2e5a-4f6e-a707-1557805e09fd"),UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
     fun `Remove Project Member`(){
         BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
         runBlocking {
@@ -199,6 +211,60 @@ class BugitAuthApiTests {
         BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
         runBlocking {
             val res = api.deleteProject(UUID.fromString("7c263e2a-c2a8-4b9d-9562-e687509230b9"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    //TODO Tasks
+
+    @Test
+    fun `Add Task`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        val task = AddTask(UUID.fromString("9dacf005-2e5a-4f6e-a707-1557805e09fd"),"Task 1","dhbcvdshjc fdfsfs fdsfds",
+            UUID.fromString("3d21cef2-84ae-48f4-96d5-5b7b6de91351"),"2022-03-27","2022-04-10","Java"
+        )
+        runBlocking {
+            val res = api.addTask(task)
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Assign Task`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        val user = AssignTask(UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"), UUID.fromString("3d7eee0c-fad4-4e18-8442-64b197dd4f79"))
+        runBlocking {
+            val res = api.assignTask(user)
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Add Comment`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        val comment = AddComment(UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"), UUID.fromString("3d7eee0c-fad4-4e18-8442-64b197dd4f79"),
+            "This is my comment","2022-03-27"
+        )
+        runBlocking {
+            val res = api.addComment(comment)
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Get Single Task`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.getSingleTask(UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"))
+            assertEquals("success",res.body()?.response)
+        }
+    }
+
+    @Test
+    fun `Delete Task`(){
+        BugitClient.authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjM2NjE0NzcsInVzZXJfaWQiOiIzZDIxY2VmMi04NGFlLTQ4ZjQtOTZkNS01YjdiNmRlOTEzNTEifQ.3oqluK5_SCk2E1L0gBoKpyMroicvlL95u1cmEqi6Ma8"
+        runBlocking {
+            val res = api.deleteTask(UUID.fromString("eee2662e-3983-4f85-bf79-23f411b88bf1"))
             assertEquals("success",res.body()?.response)
         }
     }

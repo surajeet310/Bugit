@@ -1,6 +1,7 @@
 package com.herokuapp.serverbugit.api.services
 
 import com.herokuapp.serverbugit.api.models.GlobalServerResponse
+import com.herokuapp.serverbugit.api.models.projects.*
 import com.herokuapp.serverbugit.api.models.workspaces.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -64,5 +65,48 @@ interface BugitAuthApiServices {
     @DELETE("/auth/removeWorkspaceMember")
     suspend fun removeWorkspaceMember(
         @Query("workspace_id") workspaceId: UUID, @Query("user_id") userId:UUID
+    ):Response<GlobalServerResponse>
+
+
+    //TODO Project Endpoints
+
+    @GET("/auth/project")
+    suspend fun getSingleProject(
+        @Query("project_id") projectId:UUID
+    ):Response<SingleProjectResponse>
+
+    @GET("/auth/projectMembers")
+    suspend fun getProjectMembers(
+        @Query("project_id") projectId:UUID,@Query("task_id") taskId:UUID
+    ):Response<ProjectMemberResponse>
+
+    @GET("/auth/allProjectMembers")
+    suspend fun getAllProjectMembers(
+        @Query("project_id") projectId:UUID
+    ):Response<ProjectMemberResponse>
+
+    @POST("/auth/addProject")
+    suspend fun addProject(
+        @Body project:AddProject
+    ):Response<GlobalServerResponse>
+
+    @POST("/auth/addProjectMember")
+    suspend fun addProjectMember(
+        @Body member:AddProjectMember
+    ):Response<GlobalServerResponse>
+
+    @POST("/auth/makeProjectUserAdmin")
+    suspend fun makeProjectUserAdmin(
+        @Body member:MakeProjectMemberAdmin
+    ):Response<GlobalServerResponse>
+
+    @DELETE("/auth/deleteProject")
+    suspend fun deleteProject(
+        @Query("project_id") projectId: UUID
+    ):Response<GlobalServerResponse>
+
+    @DELETE("/auth/removeProjectMember")
+    suspend fun removeProjectMember(
+        @Query("project_id") projectId: UUID, @Query("user_id") userId: UUID
     ):Response<GlobalServerResponse>
 }

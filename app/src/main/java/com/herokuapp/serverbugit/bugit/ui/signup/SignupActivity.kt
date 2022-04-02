@@ -30,7 +30,8 @@ class SignupActivity : AppCompatActivity() {
             it.lifecycleOwner = this
             it.signUpBtn.setOnClickListener { btn ->
                 if((it.nameInput.text.toString() != "")&&(it.emailInput.text.toString() != "")&&
-                    (it.pwdInput.text.toString() != "")&&(it.confirmPwdInput.text.toString() != "")){
+                    (it.pwdInput.text.toString() != "")&&(it.confirmPwdInput.text.toString() != "")&&
+                    (it.nameInput.text.toString().split(" ").toList().size > 1 )){
                     fullName = it.nameInput.text.toString().split(" ").toMutableList()
                     email = it.emailInput.text.toString()
                     password = it.pwdInput.text.toString()
@@ -39,6 +40,10 @@ class SignupActivity : AppCompatActivity() {
                 else{
                     if(it.nameInput.text.toString() == ""){
                         it.nameInputLayout.error = "Name cannot be empty"
+                    }
+
+                    if (it.nameInput.text.toString().split(" ").toList().size <= 1 ){
+                        it.nameInputLayout.error = "Enter both first and last name"
                     }
 
                     if(it.emailInput.text.toString() == ""){

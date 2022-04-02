@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="signUpViewModel"
+            type="com.herokuapp.serverbugit.bugit.ui.signup.SignUpViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,6 +49,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameInput"
                 android:hint="Enter your name (eg: Bruce Wayne)"
+                android:text="@={signUpViewModel.name}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -60,6 +67,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailInput"
                 android:hint="Enter your email"
+                android:text="@={signUpViewModel.email}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -79,6 +87,7 @@
                 android:id="@+id/pwdInput"
                 android:hint="Enter your password"
                 android:inputType="textPassword"
+                android:text="@={signUpViewModel.password}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -98,13 +107,14 @@
                 android:id="@+id/confirmPwdInput"
                 android:hint="Re enter your password"
                 android:inputType="textPassword"
+                android:text="@={signUpViewModel.confirmPassword}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/signInBtn"
+            android:id="@+id/signUpBtn"
             android:text="Sign up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

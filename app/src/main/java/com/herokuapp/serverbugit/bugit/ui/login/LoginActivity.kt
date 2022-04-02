@@ -1,4 +1,4 @@
-package com.herokuapp.serverbugit.bugit.ui
+package com.herokuapp.serverbugit.bugit.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

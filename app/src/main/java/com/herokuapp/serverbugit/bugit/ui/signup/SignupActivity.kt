@@ -36,6 +36,7 @@ class SignupActivity : AppCompatActivity() {
                     email = it.emailInput.text.toString()
                     password = it.pwdInput.text.toString()
                     signUpViewModel!!.registerUser(fullName[0],fullName[1],email, password)
+                    it.signUpBtn.isEnabled = false
                 }
                 else{
                     if(it.nameInput.text.toString() == ""){
@@ -98,6 +99,7 @@ class SignupActivity : AppCompatActivity() {
             it.signUpResponse.observe(this, Observer { responseMsg->
                 if (responseMsg == "error"){
                     Snackbar.make(signUpActivityBinding?.signUpBtn!!.rootView,"Error Occurred. Please try again.",Snackbar.LENGTH_SHORT).show()
+                    signUpActivityBinding?.signUpBtn?.isEnabled = true
                 }
                 else{
                     if (responseMsg == "success"){
@@ -106,6 +108,7 @@ class SignupActivity : AppCompatActivity() {
                     }
                     else{
                         Snackbar.make(signUpActivityBinding?.signUpBtn!!.rootView,"User Exists",Snackbar.LENGTH_SHORT).show()
+                        signUpActivityBinding?.signUpBtn?.isEnabled = true
                     }
                 }
             })

@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="signInViewModel"
+            type="com.herokuapp.serverbugit.bugit.ui.login.LoginViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,6 +48,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailInput"
                 android:hint="Enter your email"
+                android:text="@={signInViewModel.email}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -60,6 +67,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pwdInput"
                 android:hint="Enter your password"
+                android:text="@={signInViewModel.password}"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

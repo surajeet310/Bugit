@@ -1,5 +1,6 @@
 package com.herokuapp.serverbugit.bugit.ui.login
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.data.SignInRepo
 import com.herokuapp.serverbugit.bugit.databinding.ActivityLoginBinding
+import com.herokuapp.serverbugit.bugit.ui.home.HomeActivity
 
 class LoginActivity : AppCompatActivity() {
     private var loginActivityBinding:ActivityLoginBinding? = null
@@ -79,17 +81,17 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (status == "success"){
                     Snackbar.make(loginActivityBinding?.signInBtn!!.rootView,"Successful login",Snackbar.LENGTH_SHORT).show()
-                }
-            })
-
-            it.token.observe(this, Observer { tokenStr->
-                if (tokenStr != null){
-                    editor.putString("Token",tokenStr).apply()
-                    //TODO Goto home activity
-                }
-                else{
-                    loginActivityBinding!!.signInBtn.isEnabled = true
-                    Snackbar.make(loginActivityBinding?.signInBtn!!.rootView,"Error occurred. Try again",Snackbar.LENGTH_SHORT).show()
+                    it.token.observe(this, Observer { tokenStr->
+                        if (tokenStr != null){
+                            editor.putString("Token",tokenStr).apply()
+                            startActivity(Intent(this,HomeActivity::class.java))
+                            finish()
+                        }
+                        else{
+                            loginActivityBinding!!.signInBtn.isEnabled = true
+                            Snackbar.make(loginActivityBinding?.signInBtn!!.rootView,"Error occurred. Try again",Snackbar.LENGTH_SHORT).show()
+                        }
+                    })
                 }
             })
         }

@@ -19,7 +19,7 @@
 
             <TextView
                 android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:fontFamily="@font/baskervville"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"

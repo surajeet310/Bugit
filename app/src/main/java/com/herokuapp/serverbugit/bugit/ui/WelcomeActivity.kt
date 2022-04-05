@@ -6,10 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.coroutineScope
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.databinding.ActivityWelcomeBinding
+import com.herokuapp.serverbugit.bugit.shared.CurrentUser
+import com.herokuapp.serverbugit.bugit.ui.home.HomeActivity
 import com.herokuapp.serverbugit.bugit.ui.login.LoginActivity
 import com.herokuapp.serverbugit.bugit.ui.signup.SignupActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WelcomeActivity : AppCompatActivity() {
     private var welcomeActivityBinding:ActivityWelcomeBinding? = null
@@ -32,7 +37,11 @@ class WelcomeActivity : AppCompatActivity() {
             }
         }
         else{
-            //TODO Get user id from token and redirect to home activity
+            val token = sharedPrefs.getString("Token","")
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("token",token)
+            startActivity(intent)
+            finish()
         }
     }
 }

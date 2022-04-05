@@ -4,16 +4,16 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.data.SignInRepo
 import com.herokuapp.serverbugit.bugit.databinding.ActivityLoginBinding
+import com.herokuapp.serverbugit.bugit.shared.CurrentUser
 import com.herokuapp.serverbugit.bugit.ui.home.HomeActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private var loginActivityBinding:ActivityLoginBinding? = null
@@ -84,7 +84,9 @@ class LoginActivity : AppCompatActivity() {
                     it.token.observe(this, Observer { tokenStr->
                         if (tokenStr != null){
                             editor.putString("Token",tokenStr).apply()
-                            startActivity(Intent(this,HomeActivity::class.java))
+                            val intent = Intent(this,HomeActivity::class.java)
+                            intent.putExtra("token",tokenStr)
+                            startActivity(intent)
                             finish()
                         }
                         else{

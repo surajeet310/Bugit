@@ -5,4 +5,5 @@ import androidx.lifecycle.ViewModel
 
 class SharedViewModel:ViewModel() {
     var userId = MutableLiveData<String>()
+    var token = MutableLiveData<String>()
 }

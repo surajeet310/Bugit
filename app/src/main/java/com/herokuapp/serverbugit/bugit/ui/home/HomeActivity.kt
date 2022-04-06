@@ -49,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         homeActivityBinding = DataBindingUtil.setContentView(this,R.layout.activity_home)
         token = intent.getStringExtra("token").toString()
+        sharedViewModel.token.postValue(token)
         user = CurrentUser(token)
         toolBar = findViewById(R.id.toolbar)
         setSupportActionBar(toolBar)

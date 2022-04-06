@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
         layoutManager = LinearLayoutManager(this.context)
         recyclerView = fragmentHomeBinding!!.homeRecyclerView
         homeListAdapter = HomeListAdapter()
+        fragmentHomeBinding!!.progressIndicator.visibility = View.VISIBLE
         sharedViewModel.token.observe(viewLifecycleOwner, Observer {
             token = it
             sharedViewModel.userId.observe(viewLifecycleOwner, Observer { id->
@@ -63,6 +64,7 @@ class HomeFragment : Fragment() {
                     else{
                         homeFragmentViewModel.homeResponseData.observe(viewLifecycleOwner, Observer { homeList->
                             if (homeList == null){
+                                fragmentHomeBinding!!.progressIndicator.visibility = View.GONE
                                 fragmentHomeBinding!!.noWorkspaces.visibility = View.VISIBLE
                             }
                             else{
@@ -70,6 +72,7 @@ class HomeFragment : Fragment() {
                                 recyclerView.layoutManager = layoutManager
                                 recyclerView.setHasFixedSize(true)
                                 recyclerView.adapter = homeListAdapter
+                                fragmentHomeBinding!!.progressIndicator.visibility = View.GONE
                             }
                         })
                     }

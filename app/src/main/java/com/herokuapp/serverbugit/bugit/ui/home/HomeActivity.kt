@@ -49,7 +49,9 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         homeActivityBinding = DataBindingUtil.setContentView(this,R.layout.activity_home)
         token = intent.getStringExtra("token").toString()
+        userId = intent.getStringExtra("userId").toString()
         sharedViewModel.token.postValue(token)
+        sharedViewModel.userId.postValue(userId)
         user = CurrentUser(token)
         toolBar = findViewById(R.id.toolbar)
         setSupportActionBar(toolBar)
@@ -67,15 +69,10 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         setupActionBarWithNavController(navController, drawerLayout)
         navView.setupWithNavController(navController)
-        fetchUserId(user)
-        user.getUserId().observe(this, Observer {
-            userId = it
-            sharedViewModel.userId.postValue(userId)
-            fetchUser(user,userId)
-            user.getUserDetail().observe(this, Observer { details->
-                userDetails = details
-                findViewById<TextView>(R.id.user_name).text = userDetails.fname
-            })
+        fetchUser(user,userId)
+        user.getUserDetail().observe(this, Observer { details->
+            userDetails = details
+            findViewById<TextView>(R.id.user_name).text = userDetails.fname
         })
 
         navView.setNavigationItemSelectedListener {
@@ -130,12 +127,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    private fun fetchUserId(user: CurrentUser){
-        lifecycle.coroutineScope.launch(Dispatchers.IO) {
-            user.getUser()
-        }
     }
 
     private fun fetchUser(user: CurrentUser,userId:String){

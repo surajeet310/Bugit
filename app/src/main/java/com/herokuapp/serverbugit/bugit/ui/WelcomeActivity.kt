@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.databinding.ActivityWelcomeBinding
@@ -37,11 +38,24 @@ class WelcomeActivity : AppCompatActivity() {
             }
         }
         else{
+            welcomeActivityBinding!!.progressBar.visibility = View.VISIBLE
             val token = sharedPrefs.getString("Token","")
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("token",token)
-            startActivity(intent)
-            finish()
+            val user = CurrentUser(token!!)
+            fetchUserId(user)
+            user.getUserId().observe(this, Observer {
+                intent.putExtra("userId",it)
+                startActivity(intent)
+                finish()
+                welcomeActivityBinding!!.progressBar.visibility = View.GONE
+            })
+        }
+    }
+
+    private fun fetchUserId(user:CurrentUser){
+        lifecycle.coroutineScope.launch(Dispatchers.IO) {
+            user.getUser()
         }
     }
 }

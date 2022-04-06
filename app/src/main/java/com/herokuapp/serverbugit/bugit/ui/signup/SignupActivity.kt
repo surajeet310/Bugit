@@ -3,6 +3,7 @@ package com.herokuapp.serverbugit.bugit.ui.signup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -36,6 +37,7 @@ class SignupActivity : AppCompatActivity() {
                     email = it.emailInput.text.toString()
                     password = it.pwdInput.text.toString()
                     signUpViewModel!!.registerUser(fullName[0],fullName[1],email, password)
+                    it.progressBar.visibility = View.VISIBLE
                     it.signUpBtn.isEnabled = false
                 }
                 else{
@@ -99,16 +101,23 @@ class SignupActivity : AppCompatActivity() {
             it.signUpResponse.observe(this, Observer { responseMsg->
                 if (responseMsg == "error"){
                     Snackbar.make(signUpActivityBinding?.signUpBtn!!.rootView,"Error Occurred. Please try again.",Snackbar.LENGTH_SHORT).show()
-                    signUpActivityBinding?.signUpBtn?.isEnabled = true
+                    signUpActivityBinding?.let { binding->
+                        binding.progressBar.visibility = View.GONE
+                        binding.signUpBtn.isEnabled = true
+                    }
                 }
                 else{
                     if (responseMsg == "success"){
                         startActivity(Intent(this,LoginActivity::class.java))
+                        signUpActivityBinding!!.progressBar.visibility = View.GONE
                         finish()
                     }
                     else{
                         Snackbar.make(signUpActivityBinding?.signUpBtn!!.rootView,"User Exists",Snackbar.LENGTH_SHORT).show()
-                        signUpActivityBinding?.signUpBtn?.isEnabled = true
+                        signUpActivityBinding?.let { binding->
+                            binding.progressBar.visibility = View.GONE
+                            binding.signUpBtn.isEnabled = true
+                        }
                     }
                 }
             })

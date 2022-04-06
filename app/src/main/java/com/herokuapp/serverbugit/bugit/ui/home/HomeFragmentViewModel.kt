@@ -16,6 +16,8 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
 
     var addWorkspaceResponseStatus = homeRepo.getAddWorkspaceStatus()
 
+    var deleteWorkspaceStatus = homeRepo.getDeleteWorkspaceStatus()
+
     fun getHome(){
         viewModelScope.launch(Dispatchers.IO) {
             homeRepo.fetchHome()
@@ -26,6 +28,12 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
         val workspace = AddWorkspace(UUID.fromString(userId),name,description,createdAt)
         viewModelScope.launch(Dispatchers.IO) {
             homeRepo.addWorkspace(workspace)
+        }
+    }
+
+    fun deleteWorkspace(workspaceId:UUID){
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepo.deleteWorkspace(workspaceId)
         }
     }
 

@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.herokuapp.serverbugit.api.models.workspaces.Home
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.data.HomeRepo
 import com.herokuapp.serverbugit.bugit.databinding.FragmentHomeBinding
@@ -43,7 +44,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView = fragmentHomeBinding!!.homeRecyclerView
-        homeListAdapter = HomeListAdapter()
         fragmentHomeBinding!!.progressIndicator.visibility = View.VISIBLE
         sharedViewModel.token.observe(viewLifecycleOwner, Observer {
             token = it
@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
                 userId = id
                 homeRepo = HomeRepo(token,userId)
                 homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
+                homeListAdapter = HomeListAdapter(homeFragmentViewModel)
                 viewModelInitialized.postValue(true)
             })
         })
@@ -67,15 +68,22 @@ class HomeFragment : Fragment() {
                             if (homeList == null){
                                 fragmentHomeBinding!!.progressIndicator.visibility = View.GONE
                                 fragmentHomeBinding!!.noWorkspaces.visibility = View.VISIBLE
+                                renderList(homeList)
                             }
                             else{
-                                homeListAdapter.submitList(homeList)
-                                recyclerView.layoutManager = layoutManager
-                                recyclerView.setHasFixedSize(true)
-                                recyclerView.adapter = homeListAdapter
-                                fragmentHomeBinding!!.progressIndicator.visibility = View.GONE
+                                renderList(homeList)
                             }
                         })
+                    }
+                })
+
+                homeFragmentViewModel.deleteWorkspaceStatus.observe(viewLifecycleOwner, Observer { status->
+                    if (status == true){
+                        Snackbar.make(fragmentHomeBinding!!.addWorkspaceBtn,"Workspace Deleted",Snackbar.LENGTH_SHORT).show()
+                        homeFragmentViewModel.getHome()
+                    }
+                    else{
+                        Snackbar.make(fragmentHomeBinding!!.addWorkspaceBtn,"Workspace could not be deleted. Error !",Snackbar.LENGTH_SHORT).show()
                     }
                 })
             }
@@ -85,6 +93,14 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.home_to_add_workspace)
         }
 
+    }
+
+    private fun renderList(homeList:List<Home>?){
+        homeListAdapter.submitList(homeList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = homeListAdapter
+        fragmentHomeBinding!!.progressIndicator.visibility = View.GONE
     }
 
     override fun onDestroyView() {

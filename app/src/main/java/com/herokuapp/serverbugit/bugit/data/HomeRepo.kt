@@ -11,11 +11,14 @@ class HomeRepo(private val token:String,private val userId:String) {
     private var homeResponseData = MutableLiveData<List<Home>?>()
     private var homeResponseStatus = MutableLiveData<Boolean>()
     private var addWorkspaceStatus = MutableLiveData<Boolean>()
+    private var deleteWorkspaceStatus = MutableLiveData<Boolean>()
 
     fun getHomeResponseData() = homeResponseData
     fun getHomeResponseStatus() = homeResponseStatus
 
     fun getAddWorkspaceStatus() = addWorkspaceStatus
+
+    fun getDeleteWorkspaceStatus() = deleteWorkspaceStatus
 
     suspend fun fetchHome(){
         BugitClient.authToken = token
@@ -37,6 +40,17 @@ class HomeRepo(private val token:String,private val userId:String) {
         }
         else{
             addWorkspaceStatus.postValue(false)
+        }
+    }
+
+    suspend fun deleteWorkspace(workspaceId:UUID){
+        BugitClient.authToken = token
+        val deleteWorkspaceResponse = authApi.deleteWorkspace(workspaceId)
+        if (deleteWorkspaceResponse.body() != null){
+            deleteWorkspaceStatus.postValue(true)
+        }
+        else{
+            deleteWorkspaceStatus.postValue(false)
         }
     }
 }

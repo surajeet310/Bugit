@@ -11,15 +11,18 @@ import com.herokuapp.serverbugit.api.models.workspaces.Home
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.databinding.FragmentHomeListItemBinding
 
-class HomeListAdapter:ListAdapter<Home,HomeListAdapter.HomeListViewHolder>(DiffUtilComparator()) {
+class HomeListAdapter(private val homeFragmentViewModel: HomeFragmentViewModel):ListAdapter<Home,HomeListAdapter.HomeListViewHolder>(DiffUtilComparator()) {
     private lateinit var homeListItemBinding:FragmentHomeListItemBinding
 
-    class HomeListViewHolder(view: View, private val listItemBinding: FragmentHomeListItemBinding):RecyclerView.ViewHolder(view){
+    class HomeListViewHolder(view: View, private val listItemBinding: FragmentHomeListItemBinding,private val homeFragmentViewModel: HomeFragmentViewModel):RecyclerView.ViewHolder(view){
         fun bind(item:Home){
             listItemBinding.let {
                 it.workspaceName.text = item.name
                 it.memberCount.text = item.memberCount.toString()
                 it.projectCount.text = item.projectCount.toString()
+            }
+            listItemBinding.deleteWorkspace.setOnClickListener {
+                homeFragmentViewModel.deleteWorkspace(item.workspaceId)
             }
         }
     }
@@ -27,7 +30,7 @@ class HomeListAdapter:ListAdapter<Home,HomeListAdapter.HomeListViewHolder>(DiffU
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         homeListItemBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_list_item,parent,false)
-        return HomeListViewHolder(homeListItemBinding.root,homeListItemBinding)
+        return HomeListViewHolder(homeListItemBinding.root,homeListItemBinding,homeFragmentViewModel)
     }
 
     override fun onBindViewHolder(holder: HomeListViewHolder, position: Int) {

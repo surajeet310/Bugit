@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -80,6 +81,9 @@ class HomeFragment : Fragment() {
             }
         })
 
+        fragmentHomeBinding!!.addWorkspaceBtn.setOnClickListener {
+            it.findNavController().navigate(R.id.home_to_add_workspace)
+        }
 
     }
 

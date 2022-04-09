@@ -12,7 +12,7 @@
             android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/workspace_member_recycler_view"
+            android:id="@+id/project_member_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

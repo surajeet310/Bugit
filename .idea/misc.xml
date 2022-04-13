@@ -13,12 +13,17 @@
         <entry key="app/src/main/res/layout/fragment_add_project.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_add_project_member.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_add_project_member_list_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_add_task.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_workspace.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_add_workspace_member.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_assign_task.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/fragment_assign_task_list_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_list_item.xml" value="0.35520833333333335" />
-        <entry key="app/src/main/res/layout/fragment_single_project.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_single_project.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_single_project_list_item.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_single_task.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_single_task_list_item.xml" value="0.29157759726378796" />
         <entry key="app/src/main/res/layout/fragment_single_workspace.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_single_workspace_list_item.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_view_project_member.xml" value="0.35520833333333335" />

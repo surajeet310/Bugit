@@ -42,6 +42,11 @@ interface BugitAuthApiServices {
         @Query("user_id") userId:UUID
     ):Response<RequestResponse>
 
+    @POST("/auth/ignoreRequest")
+    suspend fun denyWorkspaceRequest(
+        @Body requestId:AddWorkspaceMember
+    ):Response<GlobalServerResponse>
+
     @POST("/auth/addWorkspace")
     suspend fun addWorkspace(
         @Body workspace:AddWorkspace

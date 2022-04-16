@@ -21,5 +21,7 @@ data class SingleProject(
     @Json(name = "deadline")
     val deadline:String,
     @Json(name = "tech")
-    val tech:String
+    val tech:String,
+    @Json(name = "is_admin")
+    val isAdmin:Boolean
 )

@@ -17,5 +17,7 @@ data class SingleWorkspace(
     @Json(name = "member_count")
     val memberCount:Int,
     @Json(name = "created_at")
-    val createdAt:String
+    val createdAt:String,
+    @Json(name = "is_admin")
+    val isAdmin:Boolean
 )

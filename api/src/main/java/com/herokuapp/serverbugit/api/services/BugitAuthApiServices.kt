@@ -24,7 +24,7 @@ interface BugitAuthApiServices {
 
     @GET("/auth/home/workspace")
     suspend fun getSingleWorkspace(
-        @Query("workspace_id") workspaceId:UUID
+        @Query("workspace_id") workspaceId:UUID, @Query("user_id") userId: UUID
     ):Response<SingleWorkspaceResponse>
 
     @GET("/auth/workspaceMembers")
@@ -77,7 +77,7 @@ interface BugitAuthApiServices {
 
     @GET("/auth/project")
     suspend fun getSingleProject(
-        @Query("project_id") projectId:UUID
+        @Query("project_id") projectId:UUID, @Query("user_id") userId: UUID
     ):Response<SingleProjectResponse>
 
     @GET("/auth/projectMembers")

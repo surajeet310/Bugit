@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
                 userId = id
                 homeRepo = HomeRepo(token,userId)
                 homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
-                homeListAdapter = HomeListAdapter(homeFragmentViewModel)
+                homeListAdapter = HomeListAdapter(sharedViewModel)
                 viewModelInitialized.postValue(true)
             })
         })
@@ -71,19 +71,10 @@ class HomeFragment : Fragment() {
                                 renderList(homeList)
                             }
                             else{
+                                fragmentHomeBinding!!.noWorkspaces.visibility = View.GONE
                                 renderList(homeList)
                             }
                         })
-                    }
-                })
-
-                homeFragmentViewModel.deleteWorkspaceStatus.observe(viewLifecycleOwner, Observer { status->
-                    if (status == true){
-                        Snackbar.make(fragmentHomeBinding!!.addWorkspaceBtn,"Workspace Deleted",Snackbar.LENGTH_SHORT).show()
-                        homeFragmentViewModel.getHome()
-                    }
-                    else{
-                        Snackbar.make(fragmentHomeBinding!!.addWorkspaceBtn,"Workspace could not be deleted. Error !",Snackbar.LENGTH_SHORT).show()
                     }
                 })
             }

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/home_to_add_workspace"
             app:destination="@id/add_workspace_fragment" />
+        <action
+            android:id="@+id/home_to_single_workspace"
+            app:destination="@id/single_workspace_fragment"/>
     </fragment>
 
     <fragment
@@ -20,7 +23,62 @@
         tools:layout="@layout/fragment_add_workspace">
         <action
             android:id="@+id/add_workspace_to_home"
-            app:destination="@id/home_fragment"/>
+            app:destination="@id/home_fragment"
+            app:popUpTo="@id/home_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/single_workspace_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.home.SingleWorkspaceFragment"
+        tools:layout="@layout/fragment_single_workspace">
+        <action
+            android:id="@+id/single_workspace_to_home"
+            app:destination="@id/home_fragment"
+            app:popUpTo="@id/home_fragment"
+            app:popUpToInclusive="false"/>
+        <action
+            android:id="@+id/single_workspace_to_add_project"
+            app:destination="@id/add_project_fragment" />
+        <action
+            android:id="@+id/single_workspace_to_add_workspace_member"
+            app:destination="@id/add_workspace_member_fragment"/>
+        <action
+            android:id="@+id/single_workspace_to_view_workspace_members"
+            app:destination="@id/view_workspace_members_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_project_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.projects.AddProjectFragment"
+        tools:layout="@layout/fragment_add_project">
+        <action
+            android:id="@+id/add_project_to_single_workspace"
+            app:destination="@id/single_workspace_fragment"
+            app:popUpTo="@id/single_workspace_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_workspace_member_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.home.AddWorkspaceMemberFragment"
+        tools:layout="@layout/fragment_add_workspace_member">
+        <action
+            android:id="@+id/add_workspace_member_to_single_workspace"
+            app:destination="@id/single_workspace_fragment"
+            app:popUpTo="@id/single_workspace_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/view_workspace_members_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.home.ViewWorkspaceMembersFragment"
+        tools:layout="@layout/fragment_view_workspace_members">
+        <action
+            android:id="@+id/view_workspace_members_to_single_workspace"
+            app:destination="@id/single_workspace_fragment"
+            app:popUpTo="@id/single_workspace_fragment"
+            app:popUpToInclusive="false"/>
     </fragment>
 
 </navigation>

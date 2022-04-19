@@ -32,6 +32,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_workspace_btn"
             android:text="Add Workspace"
+            android:backgroundTint="@color/light_purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Add Workspace"

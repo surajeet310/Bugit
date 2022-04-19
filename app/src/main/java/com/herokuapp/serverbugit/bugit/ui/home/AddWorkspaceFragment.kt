@@ -1,16 +1,18 @@
 package com.herokuapp.serverbugit.bugit.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.data.HomeRepo
@@ -28,6 +30,15 @@ class AddWorkspaceFragment : Fragment() {
     private var token:String = ""
     private var userId:String = ""
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.add_workspace_to_home)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this,callback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +74,7 @@ class AddWorkspaceFragment : Fragment() {
                                 if (responseStatus == true){
                                     addWorkspaceFragmentBinding!!.progressBar.visibility = View.GONE
                                     Snackbar.make(it,"Workspace Added",Snackbar.LENGTH_SHORT).show()
-                                    it.findNavController().navigate(R.id.add_workspace_to_home)
+                                    findNavController().navigate(R.id.add_workspace_to_home)
                                 }
                                 else{
                                     addWorkspaceFragmentBinding!!.let { binding->

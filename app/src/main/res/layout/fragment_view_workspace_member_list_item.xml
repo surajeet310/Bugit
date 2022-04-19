@@ -19,28 +19,48 @@
                 <TextView
                     android:id="@+id/user_name"
                     android:text="Bruce Wayne"
+                    android:layout_marginStart="5sp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/admin_text"
+                    android:text="Admin"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp">
 
                     <Button
                         android:id="@+id/make_admin_btn"
                         android:text="Make Admin"
+                        android:enabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/remove_member"
                         android:backgroundTint="@color/red"
                         app:icon="@drawable/ic_outline_delete_forever_24"
-                        android:layout_width="55sp"
+                        app:iconGravity="textStart"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="170sp"/>
+                        android:layout_marginStart="150sp"
+                        android:enabled="false"/>
                 </LinearLayout>
 
             </LinearLayout>

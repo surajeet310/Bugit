@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,59 +20,35 @@
                     android:id="@+id/workspace_name"
                     android:text="Workspace 1"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:fontFamily="@font/carrois_gothic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <com.google.android.material.divider.MaterialDivider
                     android:layout_marginTop="10sp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Members : "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                    <TextView
-                        android:id="@+id/member_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="11110"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_marginBottom="10sp"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/member_count"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
-                    android:orientation="horizontal">
+                    android:text="11110 Members"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Projects : "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                    <TextView
-                        android:id="@+id/project_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="11110"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/project_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:text="11110 Projects"
+                    android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/delete_workspace"
-                    app:icon="@drawable/ic_outline_delete_forever_24"
-                    android:text="Delete"
-                    android:backgroundTint="@color/red"
+                    android:id="@+id/view_workspace"
+                    android:text="View"
                     android:layout_marginTop="10sp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>

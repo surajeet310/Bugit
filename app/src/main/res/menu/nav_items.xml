@@ -9,15 +9,6 @@
             android:title="Home"
             android:checked="true"/>
         <item
-            android:id="@+id/projects"
-            android:title="Projects"/>
-        <item
-            android:id="@+id/assigned_task"
-            android:title="Assigned Tasks"/>
-        <item
-            android:id="@+id/task_assigned"
-            android:title="Tasks Assigned"/>
-        <item
             android:id="@+id/requests"
             android:title="Join requests"/>
     </group>

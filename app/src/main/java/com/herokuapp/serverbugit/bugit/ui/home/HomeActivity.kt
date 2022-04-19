@@ -1,23 +1,17 @@
 package com.herokuapp.serverbugit.bugit.ui.home
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -63,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home,R.id.projects,R.id.assigned_task,R.id.task_assigned,R.id.requests,R.id.account,R.id.about
+                R.id.home,R.id.requests,R.id.account,R.id.about
             ), drawerLayout
         )
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -79,37 +73,18 @@ class HomeActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> {
                     //Goto Home
-                    it.setChecked(true)
-                    true
-                }
-                R.id.projects -> {
-                    //Goto Projects
-                    it.setChecked(true)
-                    true
-                }
-                R.id.task_assigned -> {
-                    //Goto Tasks assigned
-                    it.setChecked(true)
-                    true
-                }
-                R.id.assigned_task -> {
-                    //Goto Assigned tasks
-                    it.setChecked(true)
                     true
                 }
                 R.id.requests -> {
                     //Goto Requests
-                    it.setChecked(true)
                     true
                 }
                 R.id.account -> {
                     //Goto account
-                    it.setChecked(true)
                     true
                 }
                 R.id.about -> {
                     //Goto about
-                    it.setChecked(true)
                     true
                 }
                 else -> false

@@ -69,7 +69,7 @@ class SingleWorkspaceFragment : Fragment() {
                 homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
                 sharedViewModel.workspaceId.observe(viewLifecycleOwner, Observer { wId->
                     workspaceId = wId.toString()
-                    singleWorkspaceAdapter = SingleWorkspaceAdapter()
+                    singleWorkspaceAdapter = SingleWorkspaceAdapter(sharedViewModel)
                     viewModelInitialized.postValue(true)
                 })
             })

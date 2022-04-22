@@ -10,4 +10,6 @@ class SharedViewModel:ViewModel() {
     var workspaceId = MutableLiveData<UUID>()
     var projectId = MutableLiveData<UUID>()
     var taskId = MutableLiveData<UUID>()
+    var workspace_admin = MutableLiveData<Boolean>()
+    var project_admin = MutableLiveData<Boolean>()
 }

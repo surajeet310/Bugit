@@ -18,6 +18,9 @@ class AssignTaskListAdapter(private val userId:UUID,private val taskId:UUID,priv
 
     class AssignTaskViewHolder(view: View,private val userId:UUID,private val taskId:UUID,private val taskViewModel: TaskViewModel,private val fragmentAssignTaskListItemBinding:FragmentAssignTaskListItemBinding):RecyclerView.ViewHolder(view){
         fun bind(item:ProjectMembers){
+            if (item.isAssigned){
+                fragmentAssignTaskListItemBinding.assignTaskBtn.isEnabled = false
+            }
             if (item.userId == userId){
                 fragmentAssignTaskListItemBinding.userName.text = "You"
             }
@@ -38,14 +41,7 @@ class AssignTaskListAdapter(private val userId:UUID,private val taskId:UUID,priv
 
     override fun onBindViewHolder(holder: AssignTaskViewHolder, position: Int) {
         val item = getItem(position)
-        if (!item.isAssigned){
-            fragmentAssignTaskBinding.noMembers.visibility = View.GONE
-            holder.bind(item)
-        }
-        else{
-            fragmentAssignTaskBinding.noMembers.visibility = View.VISIBLE
-            fragmentAssignTaskBinding.assignTaskRecyclerView.visibility = View.GONE
-        }
+        holder.bind(item)
     }
 
     class DiffUtilComp:DiffUtil.ItemCallback<ProjectMembers>(){

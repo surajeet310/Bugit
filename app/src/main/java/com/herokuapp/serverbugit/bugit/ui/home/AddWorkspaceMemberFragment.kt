@@ -55,7 +55,7 @@ class AddWorkspaceMemberFragment : Fragment() {
             token = it
             sharedViewModel.userId.observe(viewLifecycleOwner, Observer { uid->
                 userId = uid
-                homeRepo = HomeRepo(token, userId)
+                homeRepo = HomeRepo(token)
                 sharedViewModel.workspaceId.observe(viewLifecycleOwner, Observer { wid->
                     workspaceId = wid.toString()
                     homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]

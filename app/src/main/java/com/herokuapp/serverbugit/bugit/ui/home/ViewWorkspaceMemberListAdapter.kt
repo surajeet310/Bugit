@@ -13,11 +13,15 @@ import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.databinding.FragmentViewWorkspaceMemberListItemBinding
 import java.util.*
 
-class ViewWorkspaceMemberListAdapter(private val workspaceId:String,private val userId:String,private val homeFragmentViewModel: HomeFragmentViewModel):ListAdapter<WorkspaceMembers, ViewWorkspaceMemberListAdapter.ViewWorkspaceMembersViewHolder>(DiffUtilComp()) {
+class ViewWorkspaceMemberListAdapter(private val isAdmin:Boolean,private val workspaceId:String,private val userId:String,private val homeFragmentViewModel: HomeFragmentViewModel):ListAdapter<WorkspaceMembers, ViewWorkspaceMemberListAdapter.ViewWorkspaceMembersViewHolder>(DiffUtilComp()) {
     private var fragmentViewWorkspaceMemberListItemBinding:FragmentViewWorkspaceMemberListItemBinding? = null
 
-    class ViewWorkspaceMembersViewHolder(view:View,private val workspaceId:String,private val userId:String,private val homeFragmentViewModel: HomeFragmentViewModel,private val fragmentViewWorkspaceMemberListItemBinding:FragmentViewWorkspaceMemberListItemBinding):RecyclerView.ViewHolder(view){
+    class ViewWorkspaceMembersViewHolder(view:View,private val isAdmin:Boolean,private val workspaceId:String,private val userId:String,private val homeFragmentViewModel: HomeFragmentViewModel,private val fragmentViewWorkspaceMemberListItemBinding:FragmentViewWorkspaceMemberListItemBinding):RecyclerView.ViewHolder(view){
         fun bind(item:WorkspaceMembers,count:Int){
+            if (isAdmin){
+                fragmentViewWorkspaceMemberListItemBinding.makeAdminBtn.isEnabled = true
+                fragmentViewWorkspaceMemberListItemBinding.removeMember.isEnabled = true
+            }
             if (item.userId == UUID.fromString(userId)){
                 fragmentViewWorkspaceMemberListItemBinding.userName.text = "You"
             }
@@ -25,8 +29,6 @@ class ViewWorkspaceMemberListAdapter(private val workspaceId:String,private val 
                 fragmentViewWorkspaceMemberListItemBinding.userName.text = item.username
             }
             if (item.isAdmin){
-                fragmentViewWorkspaceMemberListItemBinding.makeAdminBtn.isEnabled = true
-                fragmentViewWorkspaceMemberListItemBinding.removeMember.isEnabled = true
                 fragmentViewWorkspaceMemberListItemBinding.adminText.visibility = View.VISIBLE
             }
 
@@ -35,7 +37,7 @@ class ViewWorkspaceMemberListAdapter(private val workspaceId:String,private val 
                     Snackbar.make(it,"Cannot delete only workspace member",Snackbar.LENGTH_SHORT).show()
                 }
                 else{
-                    homeFragmentViewModel.removeWorkspaceMember(UUID.fromString(workspaceId))
+                    homeFragmentViewModel.removeWorkspaceMember(UUID.fromString(workspaceId),item.userId)
                 }
             }
             fragmentViewWorkspaceMemberListItemBinding.makeAdminBtn.setOnClickListener {
@@ -43,7 +45,7 @@ class ViewWorkspaceMemberListAdapter(private val workspaceId:String,private val 
                     Snackbar.make(it,"User is Admin already",Snackbar.LENGTH_SHORT).show()
                 }
                 else{
-                    homeFragmentViewModel.makeWorkspaceUserAdmin(UUID.fromString(workspaceId))
+                    homeFragmentViewModel.makeWorkspaceUserAdmin(UUID.fromString(workspaceId),item.userId)
                 }
             }
         }
@@ -55,7 +57,7 @@ class ViewWorkspaceMemberListAdapter(private val workspaceId:String,private val 
     ): ViewWorkspaceMembersViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         fragmentViewWorkspaceMemberListItemBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_workspace_member_list_item,parent,false)
-        return ViewWorkspaceMembersViewHolder(fragmentViewWorkspaceMemberListItemBinding!!.root,workspaceId,userId,homeFragmentViewModel,fragmentViewWorkspaceMemberListItemBinding!!)
+        return ViewWorkspaceMembersViewHolder(fragmentViewWorkspaceMemberListItemBinding!!.root,isAdmin,workspaceId,userId,homeFragmentViewModel,fragmentViewWorkspaceMemberListItemBinding!!)
     }
 
     override fun onBindViewHolder(holder: ViewWorkspaceMembersViewHolder, position: Int) {

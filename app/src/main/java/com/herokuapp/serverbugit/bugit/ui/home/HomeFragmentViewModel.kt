@@ -3,6 +3,7 @@ package com.herokuapp.serverbugit.bugit.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspace
+import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMember
 import com.herokuapp.serverbugit.api.models.workspaces.AddWorkspaceMemberRequest
 import com.herokuapp.serverbugit.bugit.data.HomeRepo
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +31,16 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
 
     var addWorkspaceMemberReqStatus = homeRepo.getAddWorkspaceMemberReqStatus()
 
-    fun getHome(){
+    var requestData = homeRepo.getFetchRequestData()
+    var requestStatus = homeRepo.getFetchRequestStatus()
+
+    var addWorkspaceMemberStatus = homeRepo.getAddWorkspaceMemberStatus()
+
+    var denyRequestStatus = homeRepo.getDenyRequestStatus()
+
+    fun getHome(userId:UUID){
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepo.fetchHome()
+            homeRepo.fetchHome(userId)
         }
     }
 
@@ -49,9 +57,9 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
         }
     }
 
-    fun getSingleWorkspace(workspaceId: UUID){
+    fun getSingleWorkspace(workspaceId: UUID,userId:UUID){
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepo.fetchSingleWorkspace(workspaceId)
+            homeRepo.fetchSingleWorkspace(workspaceId,userId)
         }
     }
 
@@ -61,15 +69,15 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
         }
     }
 
-    fun removeWorkspaceMember(workspaceId: UUID){
+    fun removeWorkspaceMember(workspaceId: UUID,userId:UUID){
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepo.deleteWorkspaceMember(workspaceId)
+            homeRepo.deleteWorkspaceMember(workspaceId,userId)
         }
     }
 
-    fun makeWorkspaceUserAdmin(workspaceId: UUID){
+    fun makeWorkspaceUserAdmin(workspaceId: UUID,userId:UUID){
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepo.makeUserAdmin(workspaceId)
+            homeRepo.makeUserAdmin(workspaceId,userId)
         }
     }
 
@@ -77,6 +85,26 @@ class HomeFragmentViewModel(private val homeRepo: HomeRepo):ViewModel() {
         val member = AddWorkspaceMemberRequest(workspaceId,email,userId)
         viewModelScope.launch(Dispatchers.IO) {
             homeRepo.addWorkspaceMemberRequest(member)
+        }
+    }
+
+    fun getRequests(userId:UUID){
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepo.fetchRequests(userId)
+        }
+    }
+
+    fun acceptWorkspaceRequest(requestId:UUID){
+        val member = AddWorkspaceMember(requestId)
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepo.addWorkspaceMember(member)
+        }
+    }
+
+    fun denyRequest(requestId:UUID){
+        val request = AddWorkspaceMember(requestId)
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepo.denyRequest(request)
         }
     }
 

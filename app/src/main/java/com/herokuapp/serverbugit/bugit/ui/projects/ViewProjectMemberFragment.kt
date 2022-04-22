@@ -36,6 +36,7 @@ class ViewProjectMemberFragment : Fragment() {
     private var token = ""
     private var userId = ""
     private var projectId = ""
+    private var projectIsAdmin = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,10 +68,13 @@ class ViewProjectMemberFragment : Fragment() {
                 userId = uid
                 sharedViewModel.projectId.observe(viewLifecycleOwner, Observer { pid->
                     projectId = pid.toString()
-                    projectViewModel = ViewModelProvider(this,ProjectViewModelFactory(projectRepo))[ProjectViewModel::class.java]
-                    viewProjectMemberListAdapter = ViewProjectMemberListAdapter(UUID.fromString(projectId),
-                        UUID.fromString(userId),projectViewModel)
-                    viewModelInitialized.postValue(true)
+                    sharedViewModel.project_admin.observe(viewLifecycleOwner, Observer { isAdmin->
+                        projectIsAdmin = isAdmin
+                        projectViewModel = ViewModelProvider(this,ProjectViewModelFactory(projectRepo))[ProjectViewModel::class.java]
+                        viewProjectMemberListAdapter = ViewProjectMemberListAdapter(projectIsAdmin,UUID.fromString(projectId),
+                            UUID.fromString(userId),projectViewModel)
+                        viewModelInitialized.postValue(true)
+                    })
                 })
             })
         })

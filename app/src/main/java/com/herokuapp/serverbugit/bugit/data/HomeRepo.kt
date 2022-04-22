@@ -5,7 +5,7 @@ import com.herokuapp.serverbugit.api.BugitClient
 import com.herokuapp.serverbugit.api.models.workspaces.*
 import java.util.*
 
-class HomeRepo(private val token:String,private val userId:String) {
+class HomeRepo(private val token:String) {
     private val authApi = BugitClient.getAuthApiInstance()
     private var homeResponseData = MutableLiveData<List<Home>?>()
     private var homeResponseStatus = MutableLiveData<Boolean>()
@@ -18,6 +18,10 @@ class HomeRepo(private val token:String,private val userId:String) {
     private var deleteWorkspaceMemberResponseStatus = MutableLiveData<Boolean>()
     private var makeUserAdminResponseStatus = MutableLiveData<Boolean>()
     private var addWorkspaceMemberReqStatus = MutableLiveData<Boolean>()
+    private var fetchRequestData = MutableLiveData<List<Request>?>()
+    private var fetchRequestStatus = MutableLiveData<Boolean>()
+    private var addWorkspaceMemberStatus = MutableLiveData<Boolean>()
+    private var denyRequestStatus = MutableLiveData<Boolean>()
 
     fun getHomeResponseData() = homeResponseData
     fun getHomeResponseStatus() = homeResponseStatus
@@ -38,9 +42,16 @@ class HomeRepo(private val token:String,private val userId:String) {
 
     fun getAddWorkspaceMemberReqStatus() = addWorkspaceMemberReqStatus
 
-    suspend fun fetchHome(){
+    fun getFetchRequestData() = fetchRequestData
+    fun getFetchRequestStatus() = fetchRequestStatus
+
+    fun getAddWorkspaceMemberStatus() = addWorkspaceMemberStatus
+
+    fun getDenyRequestStatus() = denyRequestStatus
+
+    suspend fun fetchHome(userId:UUID){
         BugitClient.authToken = token
-        val homeResponse = authApi.getWorkspaces(UUID.fromString(userId))
+        val homeResponse = authApi.getWorkspaces(userId)
         if (homeResponse.body() != null){
             homeResponseStatus.postValue(true)
             homeResponseData.postValue(homeResponse.body()!!.result)
@@ -50,9 +61,9 @@ class HomeRepo(private val token:String,private val userId:String) {
         }
     }
 
-    suspend fun fetchSingleWorkspace(workspaceId: UUID){
+    suspend fun fetchSingleWorkspace(workspaceId: UUID,userId:UUID){
         BugitClient.authToken = token
-        val singleWorkspaceResponse = authApi.getSingleWorkspace(workspaceId, UUID.fromString(userId))
+        val singleWorkspaceResponse = authApi.getSingleWorkspace(workspaceId, userId)
         if (singleWorkspaceResponse.body() != null){
             singleWorkspaceResponseStatus.postValue(true)
             singleWorkspaceData.postValue(singleWorkspaceResponse.body()!!.result!!)
@@ -96,9 +107,9 @@ class HomeRepo(private val token:String,private val userId:String) {
         }
     }
 
-    suspend fun deleteWorkspaceMember(workspaceId:UUID){
+    suspend fun deleteWorkspaceMember(workspaceId:UUID,userId:UUID){
         BugitClient.authToken = token
-        val deleteWorkspaceMemberResponse = authApi.removeWorkspaceMember(workspaceId, UUID.fromString(userId))
+        val deleteWorkspaceMemberResponse = authApi.removeWorkspaceMember(workspaceId,userId)
         if (deleteWorkspaceMemberResponse.body() != null){
             deleteWorkspaceMemberResponseStatus.postValue(true)
         }
@@ -107,9 +118,9 @@ class HomeRepo(private val token:String,private val userId:String) {
         }
     }
 
-    suspend fun makeUserAdmin(workspaceId:UUID){
+    suspend fun makeUserAdmin(workspaceId:UUID,userId:UUID){
         BugitClient.authToken = token
-        val user = MakeUserAdmin(workspaceId, UUID.fromString(userId))
+        val user = MakeUserAdmin(workspaceId,userId)
         val makeUserAdminResponse = authApi.makeUserAdmin(user)
         if (makeUserAdminResponse.body() != null){
             makeUserAdminResponseStatus.postValue(true)
@@ -127,6 +138,40 @@ class HomeRepo(private val token:String,private val userId:String) {
         }
         else{
             addWorkspaceMemberReqStatus.postValue(false)
+        }
+    }
+
+    suspend fun fetchRequests(userId:UUID){
+        BugitClient.authToken = token
+        val fetchRequestResponse = authApi.getRequests(userId)
+        if (fetchRequestResponse.body() != null){
+            fetchRequestData.postValue(fetchRequestResponse.body()!!.result)
+            fetchRequestStatus.postValue(true)
+        }
+        else{
+            fetchRequestStatus.postValue(false)
+        }
+    }
+
+    suspend fun addWorkspaceMember(member:AddWorkspaceMember){
+        BugitClient.authToken = token
+        val addWorkspaceMemberResponse = authApi.addWorkspaceMember(member)
+        if (addWorkspaceMemberResponse.body() != null){
+            addWorkspaceMemberStatus.postValue(true)
+        }
+        else{
+            addWorkspaceMemberStatus.postValue(false)
+        }
+    }
+
+    suspend fun denyRequest(request:AddWorkspaceMember){
+        BugitClient.authToken = token
+        val denyRequestResponse = authApi.denyWorkspaceRequest(request)
+        if (denyRequestResponse.body() != null){
+            denyRequestStatus.postValue(true)
+        }
+        else{
+            denyRequestStatus.postValue(false)
         }
     }
 }

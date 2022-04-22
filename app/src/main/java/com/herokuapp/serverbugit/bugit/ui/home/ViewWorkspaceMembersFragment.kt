@@ -36,6 +36,7 @@ class ViewWorkspaceMembersFragment : Fragment() {
     private var workspaceId:String = ""
     private var token:String = ""
     private var userId:String = ""
+    private var workspaceAdmin = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,12 +65,15 @@ class ViewWorkspaceMembersFragment : Fragment() {
             token = it
             sharedViewModel.userId.observe(viewLifecycleOwner, Observer { uid->
                 userId = uid
-                homeRepo = HomeRepo(token, userId)
+                homeRepo = HomeRepo(token)
                 sharedViewModel.workspaceId.observe(viewLifecycleOwner, Observer { wid->
                     workspaceId = wid.toString()
-                    homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
-                    viewWorkspaceMemberListAdapter = ViewWorkspaceMemberListAdapter(workspaceId,userId, homeFragmentViewModel)
-                    viewModelInitialized.postValue(true)
+                    sharedViewModel.workspace_admin.observe(viewLifecycleOwner, Observer { isAdmin->
+                        workspaceAdmin = isAdmin
+                        homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
+                        viewWorkspaceMemberListAdapter = ViewWorkspaceMemberListAdapter(workspaceAdmin,workspaceId,userId, homeFragmentViewModel)
+                        viewModelInitialized.postValue(true)
+                    })
                 })
             })
         })

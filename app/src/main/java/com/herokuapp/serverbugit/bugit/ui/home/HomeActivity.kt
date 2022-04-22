@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -76,7 +77,12 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.requests -> {
-                    //Goto Requests
+                    if(navHostFragment.navController.currentDestination == navController.findDestination(R.id.home_fragment)){
+                        navController.navigate(R.id.home_to_request)
+                    }
+                    else{
+                        Toast.makeText(this,"Can be accessed from home only",Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
                 R.id.account -> {

@@ -19,6 +19,7 @@ import com.herokuapp.serverbugit.bugit.R
 import com.herokuapp.serverbugit.bugit.data.HomeRepo
 import com.herokuapp.serverbugit.bugit.databinding.FragmentHomeBinding
 import com.herokuapp.serverbugit.bugit.shared.SharedViewModel
+import java.util.*
 
 class HomeFragment : Fragment() {
     private var fragmentHomeBinding:FragmentHomeBinding? = null
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
             token = it
             sharedViewModel.userId.observe(viewLifecycleOwner, Observer { id->
                 userId = id
-                homeRepo = HomeRepo(token,userId)
+                homeRepo = HomeRepo(token)
                 homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
                 homeListAdapter = HomeListAdapter(sharedViewModel)
                 viewModelInitialized.postValue(true)
@@ -58,7 +59,7 @@ class HomeFragment : Fragment() {
 
         viewModelInitialized.observe(viewLifecycleOwner, Observer {
             if (it == true){
-                homeFragmentViewModel.getHome()
+                homeFragmentViewModel.getHome(UUID.fromString(userId))
                 homeFragmentViewModel.homeResponseStatus.observe(viewLifecycleOwner, Observer { status->
                     if (status == false){
                         Snackbar.make(fragmentHomeBinding!!.noWorkspaces,"Failed to fetch data",Snackbar.LENGTH_LONG).show()

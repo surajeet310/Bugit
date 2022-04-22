@@ -69,8 +69,7 @@ class AddProjectMemberFragment : Fragment() {
                     sharedViewModel.projectId.observe(viewLifecycleOwner, Observer { pid->
                         projectId = pid.toString()
                         projectViewModel = ViewModelProvider(this,ProjectViewModelFactory(projectRepo))[ProjectViewModel::class.java]
-                        addProjectMemberListAdapter = AddProjectMemberListAdapter(fragmentAddProjectMemberBinding!!,
-                            UUID.fromString(projectId), UUID.fromString(userId),projectViewModel)
+                        addProjectMemberListAdapter = AddProjectMemberListAdapter(UUID.fromString(projectId),projectViewModel)
                         viewModelInitialized.postValue(true)
                     })
                 })
@@ -86,17 +85,17 @@ class AddProjectMemberFragment : Fragment() {
                     })
                 }
                 else{
-                    Snackbar.make(fragmentAddProjectMemberBinding!!.noMembers,"Failed to fetch data",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAddProjectMemberBinding!!.addProjectMemberRecyclerView,"Failed to fetch data",Snackbar.LENGTH_SHORT).show()
                 }
             })
 
             projectViewModel.addProjectMemberStatus.observe(viewLifecycleOwner, Observer { status->
                 if (status){
                     projectViewModel.getProjectMembersToAdd(UUID.fromString(workspaceId), UUID.fromString(projectId))
-                    Snackbar.make(fragmentAddProjectMemberBinding!!.noMembers,"User Added",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAddProjectMemberBinding!!.addProjectMemberRecyclerView,"User Added",Snackbar.LENGTH_SHORT).show()
                 }
                 else{
-                    Snackbar.make(fragmentAddProjectMemberBinding!!.noMembers,"Failed to add user",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAddProjectMemberBinding!!.addProjectMemberRecyclerView,"Failed to add user",Snackbar.LENGTH_SHORT).show()
                 }
             })
         })

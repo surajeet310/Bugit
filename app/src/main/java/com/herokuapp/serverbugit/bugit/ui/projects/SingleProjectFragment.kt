@@ -83,6 +83,7 @@ class SingleProjectFragment : Fragment() {
                     projectViewModel.singleProjectData.observe(viewLifecycleOwner, Observer { singleProjectData->
                         fragmentSingleProjectBinding!!.progressIndicator.visibility = View.GONE
                         fragmentSingleProjectBinding!!.let { binding->
+                            sharedViewModel.project_admin.postValue(singleProjectData.project.isAdmin)
                             binding.nameProject.text = singleProjectData.project.name
                             binding.descProject.text = singleProjectData.project.desc
                             binding.techProject.text = singleProjectData.project.tech

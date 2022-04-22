@@ -65,7 +65,7 @@ class SingleWorkspaceFragment : Fragment() {
             token = it
             sharedViewModel.userId.observe(viewLifecycleOwner, Observer { id->
                 userId = id
-                homeRepo = HomeRepo(token, userId)
+                homeRepo = HomeRepo(token)
                 homeFragmentViewModel = ViewModelProvider(this,HomeFragmentViewModelFactory(homeRepo))[HomeFragmentViewModel::class.java]
                 sharedViewModel.workspaceId.observe(viewLifecycleOwner, Observer { wId->
                     workspaceId = wId.toString()
@@ -76,7 +76,7 @@ class SingleWorkspaceFragment : Fragment() {
         })
         viewModelInitialized.observe(viewLifecycleOwner, Observer {
             if (it){
-                homeFragmentViewModel.getSingleWorkspace(UUID.fromString(workspaceId))
+                homeFragmentViewModel.getSingleWorkspace(UUID.fromString(workspaceId), UUID.fromString(userId))
                 homeFragmentViewModel.singleWorkspaceResponseStatus.observe(viewLifecycleOwner,
                     Observer { status->
                         if (status == false){
@@ -87,6 +87,7 @@ class SingleWorkspaceFragment : Fragment() {
                                 Observer { singleWorkspaceData->
                                     fragmentSingleWorkspaceBinding!!.let { binding->
                                         binding.progressIndicator.visibility = View.GONE
+                                        sharedViewModel.workspace_admin.postValue(singleWorkspaceData.singleWorkspace.isAdmin)
                                         binding.nameWorkspace.text = singleWorkspaceData.singleWorkspace.name
                                         binding.descWorkspace.text = singleWorkspaceData.singleWorkspace.desc
                                         binding.createdAt.text = "Created on " + singleWorkspaceData.singleWorkspace.createdAt

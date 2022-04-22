@@ -87,17 +87,17 @@ class AssignTaskFragment : Fragment() {
                     })
                 }
                 else{
-                    Snackbar.make(fragmentAssignTaskBinding!!.noMembers,"Failed to fetch data",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAssignTaskBinding!!.assignTaskRecyclerView,"Failed to fetch data",Snackbar.LENGTH_SHORT).show()
                 }
             })
 
             taskViewModel.assignTaskStatus.observe(viewLifecycleOwner, Observer { status->
                 if (status){
-                    Snackbar.make(fragmentAssignTaskBinding!!.noMembers,"Task Assigned",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAssignTaskBinding!!.assignTaskRecyclerView,"Task Assigned",Snackbar.LENGTH_SHORT).show()
                     taskViewModel.getTaskMembersToAdd(UUID.fromString(projectId), UUID.fromString(taskId))
                 }
                 else{
-                    Snackbar.make(fragmentAssignTaskBinding!!.noMembers,"Failed to assign task",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(fragmentAssignTaskBinding!!.assignTaskRecyclerView,"Failed to assign task",Snackbar.LENGTH_SHORT).show()
                 }
             })
         })

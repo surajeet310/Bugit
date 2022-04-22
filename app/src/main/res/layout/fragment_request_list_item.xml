@@ -19,14 +19,14 @@
 
                 <TextView
                     android:id="@+id/user_name"
-                    android:text="Surajeet Das"
+                    android:text="Surajeet Das "
                     android:textStyle="bold"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:text="requested you to join his workspace ."
+                    android:text="requested you to join his/her workspace ."
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:layout_marginStart="5sp"
                     android:layout_width="wrap_content"

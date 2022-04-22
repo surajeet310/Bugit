@@ -12,16 +12,6 @@
             android:layout_gravity="center"
             android:visibility="visible"/>
 
-        <TextView
-            android:id="@+id/no_members"
-            android:text="No members to show"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_gravity="center"
-            android:layout_marginTop="50sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/assign_task_recycler_view"
             android:layout_width="match_parent"

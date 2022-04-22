@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_layout.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_add_comment.xml" value="0.29157759726378796" />
         <entry key="app/src/main/res/layout/fragment_add_project.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_add_project_member.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_add_project_member_list_item.xml" value="0.33" />

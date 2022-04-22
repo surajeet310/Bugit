@@ -16,8 +16,12 @@ data class SingleTask(
     val desc:String,
     @Json(name = "assignee")
     val assignee:UUID,
+    @Json(name = "assignee_name")
+    val assigneeName:String,
     @Json(name = "assigned_to")
     val assignedTo:UUID,
+    @Json(name = "assigned_to_name")
+    val assignedToName:String?,
     @Json(name = "created_at")
     val createdAt:String,
     @Json(name = "deadline")

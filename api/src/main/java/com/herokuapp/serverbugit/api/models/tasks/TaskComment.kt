@@ -12,6 +12,8 @@ data class TaskComment(
     val taskId:UUID,
     @Json(name = "user_id")
     val userId:UUID,
+    @Json(name = "user_name")
+    val userName:String,
     @Json(name = "comment")
     val comment:String,
     @Json(name = "created_at")

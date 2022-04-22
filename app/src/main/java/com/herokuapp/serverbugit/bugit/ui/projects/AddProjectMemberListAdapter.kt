@@ -38,8 +38,11 @@ class AddProjectMemberListAdapter(private val fragmentAddProjectMemberBinding:Fr
         val item = getItem(position)
         if (!item.isTaken){
             fragmentAddProjectMemberBinding.noMembers.visibility = View.GONE
-            fragmentAddProjectMemberBinding.addProjectMemberRecyclerView.visibility = View.VISIBLE
             holder.bind(item)
+        }
+        else{
+            fragmentAddProjectMemberBinding.noMembers.visibility = View.VISIBLE
+            fragmentAddProjectMemberBinding.addProjectMemberRecyclerView.visibility = View.GONE
         }
     }
 

@@ -9,4 +9,5 @@ class SharedViewModel:ViewModel() {
     var token = MutableLiveData<String>()
     var workspaceId = MutableLiveData<UUID>()
     var projectId = MutableLiveData<UUID>()
+    var taskId = MutableLiveData<UUID>()
 }

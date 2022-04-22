@@ -102,6 +102,9 @@
         <action
             android:id="@+id/single_project_to_add_task"
             app:destination="@id/add_task_fragment"/>
+        <action
+            android:id="@+id/single_project_to_single_task"
+            app:destination="@id/single_task_fragment"/>
     </fragment>
 
     <fragment
@@ -134,6 +137,45 @@
             android:id="@+id/add_task_to_single_project"
             app:destination="@id/single_project_fragment"
             app:popUpTo="@id/single_project_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/single_task_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.tasks.SingleTaskFragment"
+        tools:layout="@layout/fragment_single_task">
+        <action
+            android:id="@+id/single_task_to_single_project"
+            app:destination="@id/single_project_fragment"
+            app:popUpTo="@id/single_project_fragment"
+            app:popUpToInclusive="false"/>
+        <action
+            android:id="@+id/single_task_to_assign_task"
+            app:destination="@id/assign_task_fragment"/>
+        <action
+            android:id="@+id/single_task_to_add_comment"
+            app:destination="@id/add_comment_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/assign_task_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.tasks.AssignTaskFragment"
+        tools:layout="@layout/fragment_assign_task">
+        <action
+            android:id="@+id/assign_task_to_single_task"
+            app:destination="@id/single_task_fragment"
+            app:popUpTo="@id/single_task_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_comment_fragment"
+        android:name="com.herokuapp.serverbugit.bugit.ui.tasks.AddCommentFragment"
+        tools:layout="@layout/fragment_add_comment">
+        <action
+            android:id="@+id/add_comment_to_single_task"
+            app:destination="@id/single_task_fragment"
+            app:popUpTo="@id/single_task_fragment"
             app:popUpToInclusive="false"/>
     </fragment>
 

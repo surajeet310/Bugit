@@ -42,6 +42,8 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPrefs = requireActivity().getSharedPreferences("BugitCreds", AppCompatActivity.MODE_PRIVATE)
+        editor = sharedPrefs.edit()
         sharedViewModel.token.observe(viewLifecycleOwner, Observer {
             token = it
             accountRepo = AccountRepo(token)
@@ -98,6 +100,7 @@ class AccountFragment : Fragment() {
                 if (status){
                     requireActivity().let {
                         startActivity(Intent(this.context,WelcomeActivity::class.java))
+                        editor.putString("Token",null).apply()
                         it.finish()
                     }
                 }
@@ -155,8 +158,6 @@ class AccountFragment : Fragment() {
         }
 
         fragmentAccountBinding!!.logoutBtn.setOnClickListener {
-            sharedPrefs = requireActivity().getSharedPreferences("BugitCreds", AppCompatActivity.MODE_PRIVATE)
-            editor = sharedPrefs.edit()
             editor.putString("Token",null).apply()
             requireActivity().let {
                 startActivity(Intent(this.context,WelcomeActivity::class.java))

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/profile_background.xml" value="0.1645" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17274569402228976" />
@@ -10,6 +11,7 @@
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_layout.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_add_comment.xml" value="0.29157759726378796" />
         <entry key="app/src/main/res/layout/fragment_add_project.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_add_project_member.xml" value="0.34010416666666665" />
@@ -48,7 +50,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.35520833333333335" />
+        <option name="scale" value="0.22" />
       </ProjectState>
     </option>
   </component>

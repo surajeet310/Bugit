@@ -86,7 +86,12 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.account -> {
-                    //Goto account
+                    if (navHostFragment.navController.currentDestination == navController.findDestination(R.id.home_fragment)){
+                        navController.navigate(R.id.home_to_account)
+                    }
+                    else{
+                        Toast.makeText(this,"Can be accessed from home only",Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
                 R.id.about -> {
